@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Ma WebView</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <script>
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
+  </script>
+</head>
+
+<body>
+  <button id="close">Fermer</button>
+  <div id="content">Chargement...</div>
+  <div id="error"></div>
+  <script>
+    window.extAsyncInit = () => {
+      const messageToShare = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "generic",
+            "elements": [{
+              "title": 'JavasSript',
+              "image_url": "https://mychatbot.localtunnel.me/public/images/js-icon.png",
+              "subtitle": "JavaScript est un langage de programmation de scripts principalement employé dans les pages web",
+              "default_action": {
+                "type": "web_url",
+                "url": "https://fr.wikipedia.org/wiki/JavaScript"
+              },
+              "buttons": [{
+                "type": "web_url",
+                "url": "https://fr.wikipedia.org/wiki/JavaScript",
+                "title": "Voir le site"
+              }]
+            }]
+          }
+        }
+      }
+      MessengerExtensions.beginShareFlow((response) => {
+        MessengerExtensions.requestCloseBrowser()
+      }, (errorCode, errorMessage) => {
+        // Une erreur...
+      }, messageToShare, 'current_thread')
+    }
+  </script>
+</body>
+
+</html>
